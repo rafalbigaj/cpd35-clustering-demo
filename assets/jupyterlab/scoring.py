@@ -8,8 +8,10 @@ import sys
 
 def find_project_dir():
     script_dir = None
-    try: script_dir = os.path.dirname(os.path.realpath(__file__))
-    except NameError: script_dir = os.path.realpath("project_git_repo/cpd35-clustering-demo")
+    if os.path.isdir("project_git_repo"):
+        script_dir = os.path.realpath("project_git_repo/cpd35-clustering-demo")
+    else:
+        script_dir = 
         
     return script_dir
 
