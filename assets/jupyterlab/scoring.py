@@ -11,7 +11,7 @@ def find_project_dir():
     if os.path.isdir("project_git_repo"):
         script_dir = os.path.realpath("project_git_repo/cpd35-clustering-demo")
     else:
-        script_dir = 
+        script_dir = os.getcwd()
         
     return script_dir
 
