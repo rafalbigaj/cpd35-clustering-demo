@@ -35,13 +35,13 @@ transformer = one_hot_encoder(input_df)
 
 # Training an unsupervised model
 # Applying an unsupervised model for inference
-dbscan_model = my_dbscan()
+dbscan = my_dbscan()
 
-pipeline_linear = Pipeline([('transformer', transformer), ('dbscan', dbscan_model)])
+pipeline_linear = Pipeline([('transformer', transformer), ('dbscan', dbscan)])
 model = pipeline_linear.fit(input_df)
 
 # One score that is compute intensive and has to run on GPU
 # buddy = good_neigbour(trades_prepared_filtered_df['account', 'date', 'volume'])
 
-print(np.unique(dbscan_model.labels_))
+print(np.unique(dbscan.labels_))
     
