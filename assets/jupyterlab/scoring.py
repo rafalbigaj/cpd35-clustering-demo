@@ -44,5 +44,3 @@ model = pipeline_linear.fit(input_df)
 # buddy = good_neigbour(trades_prepared_filtered_df['account', 'date', 'volume'])
 
 print(np.unique(dbscan.labels_))
-
-print('Updated!')
