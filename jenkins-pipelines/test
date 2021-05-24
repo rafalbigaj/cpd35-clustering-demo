@@ -10,11 +10,11 @@ node {
 
         stage('Create code package') {
             zip archive: true, dir: '', glob: '', zipFile: 'code_package.zip'
-            sh 'bash -e ./scripts/create_code_package.sh'
+            sh 'bash -e ./scripts/test/create_code_package.sh'
         }
 
         stage('Test code package') {
-            sh 'bash -ex ./scripts/test.sh'
+            sh 'bash -e ./scripts/test/test.sh'
         }
     }
 }
