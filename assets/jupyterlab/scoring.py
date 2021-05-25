@@ -43,4 +43,4 @@ model = pipeline_linear.fit(input_df)
 # One score that is compute intensive and has to run on GPU
 # buddy = good_neigbour(trades_prepared_filtered_df['account', 'date', 'volume'])
 
-print(np.unique(dbscan.labels_))
+print('Number of clusters: ', len(np.unique(dbscan.labels_)))
