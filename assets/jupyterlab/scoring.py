@@ -1,4 +1,3 @@
-from sklearn.pipeline import Pipeline
 import datetime as dt
 import pandas as pd
 import numpy as np
@@ -23,24 +22,23 @@ sys.path.append(os.path.normpath(SCRIPT_DIR))
 print(SCRIPT_DIR)
 print(DATA_DIR)
 
-# from special_score.cpu_calculation import super_complexs_score
-# from special_score.gpu_calculation import good_neigbour
 from special_score.dbscan import my_dbscan
-from preprocess_data import one_hot_encoder
+from special_score.spectral import spectral
+from training import train, evaluate, clusterings
 
 reference_df = pd.read_csv(os.path.join(DATA_DIR, "credit_risk_reference.csv"))
 input_df = reference_df.drop(['Risk'], axis=1)
 
-transformer = one_hot_encoder(input_df)
+# Training models and select winniong one
 
-# Training an unsupervised model
-# Applying an unsupervised model for inference
-dbscan = my_dbscan()
+results = []
 
-pipeline_linear = Pipeline([('transformer', transformer), ('dbscan', dbscan)])
-model = pipeline_linear.fit(input_df)
+for (clustering_name, clustering_op) in clusterings:
+    print(clustering_name)
+    model = train(input_df, clustering_name, clustering_op)
+    result = evaluate(reference_df, clustering_op)
+    print("---")
+    results.append(result)
 
-# One score that is compute intensive and has to run on GPU
-# buddy = good_neigbour(trades_prepared_filtered_df['account', 'date', 'volume'])
-
-print(np.unique(dbscan.labels_))
+best_score_idx = np.argmax(r['v_measure'] for r in results)
+print("The winner is: '{}' with V-measure: {}!".format(clusterings[best_score_idx][0], results[best_score_idx]['v_measure']))
