@@ -14,7 +14,7 @@ cat > job.json <<-EOJSON
     "configuration": {
         "env_id": "jupconda37oce-0127c930-fbbb-45d2-8d3b-6e38ad66a41d",
         "env_type": "notebook",
-        "entrypoint": "assets/jupyterlab/scoring.py"
+        "entrypoint": "assets/jupyterlab/select.py"
     }
 }
 EOJSON

@@ -43,6 +43,7 @@ def train(input_df, clustering_name, clustering_op):
     model = pipeline_linear.fit(input_df)
     return model
 
+
 def evaluate(reference_df, clustering_op):
     labels_true = [int(l == 'Risk') for l in reference_df['Risk']]
     labels_pred = clustering_op.labels_
