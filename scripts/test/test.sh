@@ -30,7 +30,13 @@ qa_run_id=$(cpdctl job run create --space-id $qa_space_id --job-id $qa_job_id --
 echo "Started job run ID: $qa_run_id..."
 
 cpdctl job run wait --space-id $qa_space_id --job-id $qa_job_id --run-id $qa_run_id
-cpdctl job run logs --space-id $qa_space_id --job-id $qa_job_id --run-id $qa_run_id
+cpdctl job run logs --space-id $qa_space_id --job-id $qa_job_id --run-id $qa_run_id > job_run.log
+
+cat job_run.log
+cat job_run.log | grep "The winner is" |  sed "s/.*'\([^']*\)'.*/\1/" > ./selected_algorithm
+
+echo "Storing winning algorithm information in the code package..."
+zip -u code_package.zip ./selected_algorithm
 
 echo "Done!"
 

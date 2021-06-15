@@ -16,5 +16,9 @@ node {
         stage('Test code package') {
             sh 'bash -e ./scripts/test/test.sh'
         }
+
+        stage('Deploy code package to production') {
+            sh 'bash -e ./scripts/deploy/deploy_code_package.sh'
+        }
     }
 }
