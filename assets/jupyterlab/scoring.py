@@ -1,4 +1,3 @@
-from training import train, evaluate, clusterings
 import pandas as pd
 import numpy as np
 import os
@@ -18,6 +17,8 @@ DATA_DIR = os.path.join(PROJECT_DIR, "assets/data_asset")
 sys.path.append(os.path.normpath(SCRIPT_DIR))
 print(SCRIPT_DIR)
 print(DATA_DIR)
+
+from training import train, evaluate, clusterings
 
 reference_df = pd.read_csv(os.path.join(DATA_DIR, "credit_risk_reference.csv"))
 input_df = reference_df.drop(['Risk'], axis=1)

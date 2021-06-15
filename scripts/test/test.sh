@@ -5,7 +5,7 @@ cpdctl config context use cpd_prod
 
 qa_space_id=$QA_SPACE_ID
 qa_code_package_id=$(<./code_package_id)
-job_name="DBScan-code-package-job-$(date +'%Y-%m-%d_%H-%M-%S')"
+job_name="clustering-code-package-job-$(date +'%Y-%m-%d_%H-%M-%S')"
 
 cat > job.json <<-EOJSON
 {
