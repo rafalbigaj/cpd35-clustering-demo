@@ -5,7 +5,7 @@ cpdctl config context use cpd_prod
 
 qa_space_id=$QA_SPACE_ID
 qa_code_package_id=$(<./code_package_id)
-job_name="DBScan-code-package-job-$(date +'%Y-%m-%d_%H-%M-%S')"
+job_name="clustering-code-package-job-$(date +'%Y-%m-%d_%H-%M-%S')"
 
 cat > job.json <<-EOJSON
 {
@@ -14,7 +14,7 @@ cat > job.json <<-EOJSON
     "configuration": {
         "env_id": "jupconda37oce-0127c930-fbbb-45d2-8d3b-6e38ad66a41d",
         "env_type": "notebook",
-        "entrypoint": "assets/jupyterlab/scoring.py"
+        "entrypoint": "assets/jupyterlab/select.py"
     }
 }
 EOJSON
@@ -30,7 +30,13 @@ qa_run_id=$(cpdctl job run create --space-id $qa_space_id --job-id $qa_job_id --
 echo "Started job run ID: $qa_run_id..."
 
 cpdctl job run wait --space-id $qa_space_id --job-id $qa_job_id --run-id $qa_run_id
-cpdctl job run logs --space-id $qa_space_id --job-id $qa_job_id --run-id $qa_run_id
+cpdctl job run logs --space-id $qa_space_id --job-id $qa_job_id --run-id $qa_run_id > job_run.log
+
+cat job_run.log
+cat job_run.log | grep "The winner is" |  sed "s/.*'\([^']*\)'.*/\1/" > ./selected_algorithm
+
+echo "Storing winning algorithm information in the code package..."
+zip -u code_package.zip ./selected_algorithm
 
 echo "Done!"
 
